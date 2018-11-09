@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"runtime"
 )
 
 func main() {
@@ -54,6 +55,39 @@ func main() {
 	// function closer
 	inc := incrementer()
 	fmt.Println(inc(), inc(), inc())
+
+	// if statement
+	if i := inc(); i < 0 {
+		fmt.Println("i is negative number", i)
+	} else if i == 0 {
+		fmt.Println("i is zero")
+	} else {
+		fmt.Println("i is a positive number", i)
+	}
+
+	// switch statements
+	switch i := inc(); {
+	case i < 0:
+		fmt.Println("i is a negative number", i)
+	case i == 0:
+		fmt.Println("i is zero")
+	default:
+		fmt.Println("i is a positive number", i)
+	}
+
+	switch os := runtime.GOOS; os {
+	case "darwin":
+		fmt.Println("OS X.")
+	case "linux":
+		fmt.Println("Linux.")
+	default:
+		// freebsd, openbsd,
+		// plan9, windows..
+		fmt.Printf("%s.", os)
+
+		defer fmt.Println("Exiting functions.... ")
+		fmt.Println("Entering function")
+	}
 
 }
 
