@@ -9,6 +9,20 @@ func main() {
 	refSlice()
 	fmt.Println("//////////// Copy Slice /////////")
 	copySlice()
+	fmt.Println("//////////// Sub Slice  ////////")
+	subSlices()
+}
+
+func subSlices() {
+	subSlice := testSubSlice()
+	fmt.Println(subSlice, "remaining underlying array:", subSlice[:cap(subSlice)])
+}
+
+func testSubSlice() []int {
+	s := []int{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}
+	sub := make([]int, 3)
+	copy(sub, s[1:4])
+	return sub
 }
 
 func copySlice() {
