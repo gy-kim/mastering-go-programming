@@ -6,7 +6,15 @@ import (
 )
 
 func main() {
-	go waitAndSay("World")
+
+	// go waitAndSay("World")
+	// fmt.Println("Hello")
+	// time.Sleep(3 * time.Second)
+
+	go func(s string) {
+		time.Sleep(2 * time.Second)
+		fmt.Println(s)
+	}("World")
 	fmt.Println("Hello")
 	time.Sleep(3 * time.Second)
 }
