@@ -28,6 +28,7 @@ func findSC(name, server string) (int, error) {
 	time.Sleep(time.Duration(rand.Intn(50)) * time.Microsecond)
 
 	if v, ok := scMapping[name]; !ok {
+		// panic("Crew member not found")
 		return -1, findError{name, server, "Crew member not found"}
 		// return -1, errors.New("Crew member not found")
 		// return -1, fmt.Errorf("Crew member %s not found on server '%s", name, server)
@@ -44,7 +45,7 @@ func main() {
 			fmt.Println("A Panic reconvered", err)
 		}
 	}()
-	if i, err := findSC("Ruku", "server 1"); err != nil {
+	if clearance, err := findSC("Ruku", "server 1"); err != nil {
 		fmt.Println("Error occured while searching", err)
 
 		if err == errCrewNotFound {
@@ -57,6 +58,6 @@ func main() {
 			fmt.Println("Crew member name", v.Name)
 		}
 	} else {
-		fmt.Println("Crew member has security clearance", i)
+		fmt.Println("Crew member has security clearance", clearance)
 	}
 }
