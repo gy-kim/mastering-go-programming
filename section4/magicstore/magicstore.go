@@ -15,12 +15,22 @@ func (ms *magicStore) GetValue() interface{} {
 	return ms.value
 }
 
-func NewMagicStore() *magicStore {
-	return new(magicStore)
+func NewMagicStore(nm string) *magicStore {
+	return &magicStore{name: nm}
 }
 
 func main() {
-	mstore := NewMagicStore()
-	mstore.SetValue("Hello")
-	fmt.Println(mstore.GetValue())
+	istore := NewMagicStore("Integer Store")
+	istore.SetValue(4)
+	if v, ok := istore.GetValue().(int); ok {
+		v *= 4
+		fmt.Println(v)
+	}
+
+	sstore := NewMagicStore("String store")
+	sstore.SetValue("Hello")
+	if v, ok := sstore.GetValue().(string); ok {
+		v += " World"
+		fmt.Println(v)
+	}
 }
