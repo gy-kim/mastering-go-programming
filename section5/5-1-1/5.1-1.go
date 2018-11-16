@@ -34,5 +34,8 @@ func (sc *safeCounter) Decrement() {
 }
 
 func (sc *safeCounter) GetValue() int {
-	return sc.i
+	sc.Lock()
+	v := sc.i
+	sc.Unlock()
+	return v
 }
