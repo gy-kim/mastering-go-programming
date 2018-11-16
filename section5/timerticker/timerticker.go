@@ -8,6 +8,7 @@ import (
 func main() {
 	fmt.Println("//////// Timer ///////")
 	timer()
+
 }
 
 func timer() {
@@ -22,8 +23,10 @@ func SlowCounter(n int) {
 
 	for {
 		// Create a timer for this duration
-		t := time.NewTimer(d)
-		<-t.C
+
+		// t := time.NewTimer(d)
+		// <-t.C
+		<-time.After(d)
 		i++
 		fmt.Println(i)
 	}
