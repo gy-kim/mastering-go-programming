@@ -69,3 +69,17 @@ func TestRun(t *testing.T) {
 		msgCh <- msg
 	}
 }
+
+func TestServerConnection(t *testing.T) {
+	t.Log("Test hydra chat receive message...")
+	f := chatServerFunc(t)
+	go once.Do(f)
+	// Let's wait for one second assuming the chat server succeeded
+	time.Sleep(1 * time.Second)
+
+	conn, err := net.Dial("tcp", "127.0.0.1:2300")
+	if err != nil {
+		t.Fatal("Could not connect to hydra chat system", err)
+	}
+	conn.Close()
+}
