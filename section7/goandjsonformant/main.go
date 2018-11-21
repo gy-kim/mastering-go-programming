@@ -44,4 +44,16 @@ func main() {
 		return
 	}
 	fmt.Println(string(bSlice))
+
+	fmt.Println("=======================")
+	sbyte := []byte(`{"ShipID":1,"ShipClass":"Fighter","Captain":{"name":"Jaro","clearance level":10,"access codes":["ADA","LDL"]}}`)
+	sinfo := new(ShipInfo)
+
+	json.Unmarshal(sbyte, sinfo)
+	fmt.Println(sinfo.ShipID, sinfo.ShipClass, sinfo.Captain.Name)
+
+	ma := make(map[int]string)
+	data := []byte(`{"1":"item1","2":"item2"}`)
+	json.Unmarshal(data, &ma)
+	fmt.Println(ma)
 }
