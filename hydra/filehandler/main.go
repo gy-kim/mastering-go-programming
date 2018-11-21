@@ -49,8 +49,8 @@ func main() {
 	CopyFile("test3.txt", "./testfolder/test3.txt")
 
 	// delete a file
-	err = os.Remove("test2.txt")
-	PrintFatalError(err)
+	// err = os.Remove("test2.txt")
+	// PrintFatalError(err)
 
 	bytes, err := ioutil.ReadFile("test3.txt")
 	fmt.Println(string(bytes))
