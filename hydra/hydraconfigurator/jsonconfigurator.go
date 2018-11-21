@@ -6,7 +6,7 @@ import (
 	"os"
 )
 
-func decodeJSONCoonfig(v interface{}, filename string) error {
+func decodeJSONConfig(v interface{}, filename string) error {
 	fmt.Println("Decoding JSON")
 	file, err := os.Open(filename)
 	if err != nil {

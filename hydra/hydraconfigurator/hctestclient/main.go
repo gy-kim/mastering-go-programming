@@ -7,15 +7,17 @@ import (
 )
 
 type ConfS struct {
-	TS      string  `name:"testString"`
-	TB      bool    `name:"testBool"`
-	TF      float64 `name:"testFloat"`
+	TS      string  `name:"testString" json:"testString"`
+	TB      bool    `name:"testBool" json:"testBool"`
+	TF      float64 `name:"testFloat" json:"testFloat"`
 	TestInt int
 }
 
 func main() {
 	configstruct := new(ConfS)
-	hydraconfigurator.GetConfiguration(hydraconfigurator.CUSTOM, configstruct, "configfile.conf")
+
+	// hydraconfigurator.GetConfiguration(hydraconfigurator.CUSTOM, configstruct, "configfile.conf")
+	hydraconfigurator.GetConfiguration(hydraconfigurator.JSON, configstruct, "configfile.json")
 	fmt.Println(*configstruct)
 
 	if configstruct.TB {
