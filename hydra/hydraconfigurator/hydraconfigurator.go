@@ -8,6 +8,7 @@ import (
 const (
 	CUSTOM uint8 = iota
 	JSON
+	XML
 )
 
 var wrongTypeError error = errors.New("Type must be a pointer to a struct")
@@ -33,6 +34,8 @@ func GetConfiguration(confType uint8, obj interface{}, filename string) (err err
 		err = MarchalCustomConfig(mysRValue, filename)
 	case JSON:
 		err = decodeJSONConfig(obj, filename)
+	case XML:
+		err = decodeXMLConfig(obj, filename)
 	}
 
 	return err
