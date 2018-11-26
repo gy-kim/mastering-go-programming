@@ -27,6 +27,7 @@ type DBLayer interface {
 	AllMembers() (crew, error)
 }
 
+// ConnectDatabase connects to a database type o using the provided connection string
 func ConnectDatabase(o string, cstring string) (DBLayer, error) {
 	switch o {
 	case MYSQL:
