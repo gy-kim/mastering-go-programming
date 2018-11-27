@@ -12,21 +12,26 @@ type DBlayerconfig struct {
 	Conn string `json:"connectionstring"`
 }
 
-func InitializeAPIHandlers() {
+func InitializeAPIHandlers() error {
 	conf := new(DBlayerconfig)
 	err := hydraconfigurator.GetConfiguration(hydraconfigurator.JSON, conf, "./hydraweb/apiconfig.json")
 	if err != nil {
-		log.Fatal("Error decoding JSON", err)
+		log.Println("Error decoding JSON", err)
+		return err
 	}
 	h := newHydraCrewReqHandler()
 	err = h.connect(conf.DB, conf.Conn)
 	if err != nil {
-		log.Fatal("Error connection to db", err)
+		log.Println("Error connection to db", err)
+		return err
 	}
 	http.HandleFunc("/hydracrew/", h.handleHydraCrewRequests)
+	return nil
 }
 
-func RunAPI() {
-	InitializeAPIHandlers()
-	http.ListenAndServe(":8061", nil)
+func RunAPI() error {
+	if err := InitializeAPIHandlers(); err != nil {
+		return err
+	}
+	return http.ListenAndServe(":8061", nil)
 }
