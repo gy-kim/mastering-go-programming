@@ -30,6 +30,7 @@ func (hcwreq *hydracrewreqhandler) handleHydraCrewRequests(w http.ResponseWriter
 	switch r.Method {
 	case "GET":
 		ids := r.RequestURI[len("/hydracrew/"):]
+		// /hydracrew/2
 		id, err := strconv.Atoi(ids)
 		if err != nil {
 			w.WriteHeader(http.StatusBadRequest)
@@ -39,7 +40,7 @@ func (hcwreq *hydracrewreqhandler) handleHydraCrewRequests(w http.ResponseWriter
 		cm, err := hcwreq.dbConn.FindMember(id)
 		if err != nil {
 			w.WriteHeader(http.StatusInternalServerError)
-			fmt.Fprintf(w, "Error %s occured when search for id %d\n", err.Error(), id)
+			fmt.Fprintf(w, "Error %s occured while searching for id %d\n", err.Error(), id)
 			return
 		}
 		json.NewEncoder(w).Encode(&cm)
@@ -51,6 +52,12 @@ func (hcwreq *hydracrewreqhandler) handleHydraCrewRequests(w http.ResponseWriter
 			fmt.Fprintf(w, "Error %s occured", err)
 			return
 		}
-		hcwreq.dbConn.AddMember(cm)
+		err = hcwreq.dbConn.AddMember(cm)
+		if err != nil {
+			w.WriteHeader(http.StatusInternalServerError)
+			fmt.Fprintf(w, "Error %s occured while adding a crew member to the Hydra database", err)
+			return
+		}
+		fmt.Fprintf(w, "Successfully interted id %d\n", cm.ID)
 	}
 }
