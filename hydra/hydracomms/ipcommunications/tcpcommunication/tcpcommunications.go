@@ -1,10 +1,10 @@
 package main
 
 import (
-	"io"
 	"bufio"
 	"flag"
 	"fmt"
+	"io"
 	"log"
 	"net"
 	"os"
@@ -45,13 +45,13 @@ func runClient(address string) error {
 		_, err := conn.Read(buffer)
 		if err != nil {
 			log.Fatal(err)
-		} else if == io.EOF {
+		} else if err == io.EOF {
 			log.Println("Connection is closed")
 			return nil
 		}
 		fmt.Println(string(buffer))
 	}
-	
+
 	return scanner.Err()
 }
 
