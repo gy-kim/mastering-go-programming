@@ -78,6 +78,9 @@ func handleConnection(c net.Conn) {
 		if err != nil {
 			log.Println(err)
 			return
+		} else if err == io.EOF {
+			log.Println("Commection closed")
+			return
 		}
 		fmt.Printf("Received %s from address %s\n", line[:len(line)-1], c.RemoteAddr())
 		writer.WriteString("Message received... ")
